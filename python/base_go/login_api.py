@@ -1,7 +1,7 @@
-import requests
+# test_login.py
+from common import CommonTestMethods
 
 class TestLoginApi():
-
     def __init__(self):
         self.url = "http://localhost:8001/api/v1/login"
 
@@ -33,57 +33,59 @@ class TestLoginApi():
             },
             'message': 'Tài khoản hoặc mật khẩu không được trống!'
         }
-        # self.payloadErrorEmailFormatExpected = {
-        #     'email': 'thanhnv'
-        # }
-       
+        self.payloadErrorAccount = {
+            'email': 'thanhnv@gmail1.com',
+            'password': 'thanhnv@gmail.com'
+        }
+        self.payloadErrorAccountExpected = {
+            'errors': 'Tài khoản hoặc mật khẩu không chính xác!',
+            'message': 'Tài khoản hoặc mật khẩu không chính xác!',
+        }
+        self.payloadErrorAccountStatus = {
+            'email': 'thanhnv@gmail.com',
+            'password': 'thanhnv@gmail.com'
+        }
+        self.payloadErrorAccountStatusExpected = {
+            'errors': 'Tài khoản của bạn chưa được xác thực!',
+            'message': 'Tài khoản của bạn chưa được xác thực!',
+        }
+        self.payloadSuccess = {
+            'email': 'date@gmail.com',
+            'password': 'thanhnv@gmail.com'
+        }
+        self.payloadSuccessExpected = {
+            'data': "",
+            'message': ""
+        }
     
     def handler_test(self):
         print("--- Không chuyền đầu vào ---")
         self.login(self.payloadError, 422, 'Tài khoản hoặc mật khẩu không được trống!', self.payloadErrorExpected)
 
-        print("\n--- Email error ---")
+        print("\n--- Lôi email không đúng định dạng và password không chuyền ---")
         self.login(self.payloadErrorEmailFormat, 422, 'Tài khoản hoặc mật khẩu không được trống!', self.payloadErrorEmailFormatExpected)
         
-        print("\n--- Password error empty---")
+        print("\n--- Lỗi mât khẩu không chuyền ---")
         self.login(self.payloadEmailFormat, 422, 'Tài khoản hoặc mật khẩu không được trống!', self.payloadEmailFormatExpected)
         
-
-        # self.test_status(200, result, False, 'errorMsg', 'ログインに失敗した場合に表示')
-        # self.check_json_structure(result.json())
-    def login(self, payload, status,  message, expected):
-        result = self.test_api_login(payload)
-        self.test_status(status, result, True , 'message', message)
-        self.check_json_structure(expected, result.json())
-
-    def test_api_login(self, payload):
-        headers = {
-            'Content-Type': 'application/x-www-form-urlencoded',
-        }
-        return requests.post(self.url, data=payload, headers=headers)
-    
-    def test_status(self, status, response, compareMessage, errorName = 'message', errorText = ''):
-        if response.status_code == status:
-            print(f"---- Status: {status}")
-            if compareMessage:
-                self.test_text(errorName, errorText, response)
+        print("\n--- Đăng nhập không đúng tài khoản ---")
+        self.login(self.payloadErrorAccount, 402, 'Tài khoản hoặc mật khẩu không chính xác!', self.payloadErrorAccountExpected)
+        
+        print("\n--- Tài khoản của bạn chưa được xác thực! ---")
+        self.login(self.payloadErrorAccountStatus, 402, 'Tài khoản của bạn chưa được xác thực!', self.payloadErrorAccountStatusExpected)
+        
+        print("\n--- Đăng nhập thành công! ---")
+        self.login(self.payloadSuccess, 200, 'Đăng nhập thành công!', self.payloadSuccessExpected, False)
+        
+    def login(self, payload, status, message, expected, data = True):
+        result = CommonTestMethods.make_api_request(self.url, payload)
+        CommonTestMethods.test_status(status, result, True, 'message', message)
+        if (data):
+            CommonTestMethods.check_data_json_structure(expected, result.json())
         else:
-            print(f"--- Status: {response.status_code} mong muon: {status}")
-            print(f"--- Response JSON: {response.json()}")
-
-    def test_text(self, messageName, messageText, response):
-        if response.json()[messageName] == messageText:
-            print(f"--- Thong tin {messageName} tra ve: {messageText}")
-        else:
-            print(f"--- Thong tin {messageName} error  Content: {response.json()}")
-    
-    def check_json_structure(self, expected, actual):
-        if expected == actual:
-            print("\033[94m---- Thông tin chính xác \033[0m")
-        else:
-            print("\033[31m---- Thông tin KHÔNG chính xác \033[0m")
-            print("------ Expected:", expected)
-            print("------ Actual:  ", actual)
+            print(1)
+            CommonTestMethods.check_json_structure(expected, result.json())
+        
 
 test_login = TestLoginApi()
 test_login.handler_test()
