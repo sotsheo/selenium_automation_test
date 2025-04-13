@@ -3,7 +3,7 @@ from common import CommonTestMethods
 
 class TestLoginApi():
     def __init__(self):
-        self.url = "http://localhost:8001/api/v1/login"
+        self.url = "https://base-golang-wz41.onrender.com/api/v1/login"
 
         self.payloadError = {}
         self.payloadErrorExpected = {
