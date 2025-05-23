@@ -1,0 +1,8 @@
+[
+    {"email": "", "password": "", "expect_success": false, "required_errors": ["Email không được để trống!", "Password không được để trống!"]},
+    {"email": "valid_user@gmail.com", "password": "", "expect_success": false, "required_errors": ["Password không được để trống!"]},
+    {"email": "", "password": "valid_user@gmail.com", "expect_success": false, "required_errors": ["Email không được để trống!"]},
+    {"email": "valid_user@gmail.com", "password": "wrong_pw", "expect_success": false, "error": "Tài khoản hoặc mật khẩu không chính xác!"},
+    {"email": "not_exist@gmail.com", "password": "any_pw", "expect_success": false, "error": "Tài khoản hoặc mật khẩu không chính xác!"},
+    {"email": "thanh.van.nguyen1@gmail.com", "password": "Thanhnb09", "expect_success": true}
+]
