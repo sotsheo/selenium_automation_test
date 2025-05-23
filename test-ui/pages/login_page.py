@@ -11,21 +11,6 @@ class LoginPage(BasePage):
     ERROR_MESSAGE = (By.CSS_SELECTOR, ".Toastify__toast-body")  # Selector cho Toastify
     FIELD_ERROR_MESSAGES = (By.CLASS_NAME, "error-message")  # Cho validate required
 
-    def get_field_error_messages(self, timeout=5):
-        """
-        Lấy tất cả text lỗi từ các element có class 'error-message' (validate required).
-        """
-        from selenium.webdriver.support.ui import WebDriverWait
-        from selenium.webdriver.support import expected_conditions as EC
-        try:
-            WebDriverWait(self.driver, timeout).until(
-                EC.presence_of_element_located(self.FIELD_ERROR_MESSAGES)
-            )
-        except Exception:
-            return []
-        elems = self.driver.find_elements(*self.FIELD_ERROR_MESSAGES)
-        return [e.text for e in elems if e.text.strip()]
-
     def open_login(self):
         self.open("/")
 

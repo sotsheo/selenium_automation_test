@@ -39,7 +39,7 @@ def test_register(case, driver):
     )
     if case.get('required_errors'):
         # Kiểm tra lỗi required cho các trường
-        errors = page.get_field_error_messages() if hasattr(page, 'get_field_error_messages') else []
+        errors = page.get_field_error_messages()
         logger.info(f"Field errors: {errors}")
         for expected_err in case['required_errors']:
             assert expected_err in errors
