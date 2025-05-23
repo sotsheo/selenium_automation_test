@@ -14,8 +14,8 @@ class RegisterPage(BasePage):
     PROVINCE_SELECT = (By.NAME, "province_id")
     DISTRICT_SELECT = (By.NAME, "district_id")
     WARD_SELECT = (By.NAME, "ward_id")
-    REGISTER_BUTTON = (By.ID, "register-btn")
-    ERROR_MESSAGE = (By.ID, "register-error")
+    REGISTER_BUTTON = (By.CSS_SELECTOR, "button[type='submit']")
+    ERROR_MESSAGE = (By.CSS_SELECTOR, ".Toastify__toast-body")
     SUCCESS_MESSAGE = (By.ID, "register-success")
 
     def fill_register_form(self, name, password, email, phone, cmnd, address, province_id, district_id, ward_id):
@@ -29,9 +29,18 @@ class RegisterPage(BasePage):
         self.select_by_value(self.DISTRICT_SELECT, district_id)
         self.select_by_value(self.WARD_SELECT, ward_id)
 
-    def select_by_value(self, locator, value):
-        from selenium.webdriver.support.ui import Select
+    def select_by_value(self, locator, value, timeout=10):
+        from selenium.webdriver.support.ui import WebDriverWait, Select
+        from selenium.webdriver.support import expected_conditions as EC
+        from selenium.common.exceptions import TimeoutException
         select_elem = self.find_element(locator)
+        # Chờ option xuất hiện
+        try:
+            WebDriverWait(self.driver, timeout).until(
+                lambda d: any(opt.get_attribute("value") == str(value) for opt in select_elem.find_elements(By.TAG_NAME, "option"))
+            )
+        except TimeoutException:
+            raise Exception(f"Không tìm thấy option với value={value} trong select {locator}")
         select = Select(select_elem)
         select.select_by_value(str(value))
 
@@ -40,25 +49,24 @@ class RegisterPage(BasePage):
         from selenium.webdriver.support.ui import WebDriverWait
         from selenium.webdriver.support import expected_conditions as EC
         from selenium.common.exceptions import TimeoutException
-        # Chờ box-loading xuất hiện (tối đa 3s), nếu không xuất hiện thì bỏ qua
+        # Sau đó chờ box-loading biến mất (tối đa 5s)
         try:
-            WebDriverWait(self.driver, 3).until(
-                EC.presence_of_element_located(("css selector", ".box-loading"))
-            )
-        except TimeoutException:
-            pass
-        # Sau đó chờ box-loading biến mất (tối đa 10s)
-        try:
-            WebDriverWait(self.driver, 10).until(
+            WebDriverWait(self.driver, 5).until(
                 EC.invisibility_of_element_located(("css selector", ".box-loading"))
             )
         except TimeoutException:
             pass
 
-    def register(self, username, password, email):
-        self.input_text(self.USERNAME_INPUT, username)
+    def register(self, name, password, email, phone, cmnd, address, province_id, district_id, ward_id):
+        self.input_text(self.NAME_INPUT, name)
         self.input_text(self.PASSWORD_INPUT, password)
         self.input_text(self.EMAIL_INPUT, email)
+        self.input_text(self.PHONE_INPUT, phone)
+        self.input_text(self.CMND_INPUT, cmnd)
+        self.input_text(self.ADDRESS_INPUT, address)
+        self.select_by_value(self.PROVINCE_SELECT, province_id)
+        self.select_by_value(self.DISTRICT_SELECT, district_id)
+        self.select_by_value(self.WARD_SELECT, ward_id)
         self.click(self.REGISTER_BUTTON)
 
     def get_error_message(self):

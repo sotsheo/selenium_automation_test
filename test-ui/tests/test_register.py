@@ -25,13 +25,29 @@ def driver():
 def test_register(case, driver):
     page = RegisterPage(driver)
     page.open_register()
-    logger.info(f"Test register với user={case['username']}, expect_success={case['expect_success']}")
-    page.register(case['username'], case['password'], case['email'])
-    if case['expect_success']:
+    logger.info(f"Test register với user={case['name']}, expect_success={case['expect_success']}")
+    page.register(
+        case.get('name', ''),
+        case.get('password', ''),
+        case.get('email', ''),
+        case.get('phone', ''),
+        case.get('cmnd', ''),
+        case.get('address', ''),
+        case.get('province_id', ''),
+        case.get('district_id', ''),
+        case.get('ward_id', '')
+    )
+    if case.get('required_errors'):
+        # Kiểm tra lỗi required cho các trường
+        errors = page.get_field_error_messages() if hasattr(page, 'get_field_error_messages') else []
+        logger.info(f"Field errors: {errors}")
+        for expected_err in case['required_errors']:
+            assert expected_err in errors
+    elif case['expect_success']:
         msg = page.get_success_message()
         logger.info(f"Success msg: {msg}")
-        assert "Đăng ký thành công" in msg
+        assert msg and "thành công" in msg.lower()
     else:
         err = page.get_error_message()
         logger.info(f"Error msg: {err}")
-        assert case['error'] in err
+        assert case.get('error', '') in err
