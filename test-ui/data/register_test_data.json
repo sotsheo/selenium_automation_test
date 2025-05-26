@@ -1,5 +1,18 @@
 [
-
+    {
+        "name": "Nguyen Van A",
+        "password": "abc12345",
+        "email": "a@email.com",
+        "phone": "0912345678",
+        "cmnd": "123456789",
+        "address": "123 Đường A",
+        "province_id": "01",
+        "district_id": "001",
+        "ward_id": "00004",
+        "expect_success": true,
+        "validation": true,
+        "reuse_browser": true
+    },
     {
         "name": "",
         "password": "abc12345",
@@ -14,5 +27,159 @@
         "validation": false,
         "required_errors": ["Họ tên không được để trống!","Số cmnd không đúng định dạng!"],
         "reuse_browser": true
+    },
+    {
+        "name": "Nguyen Van C",
+        "password": "",
+        "email": "c@email.com",
+        "phone": "0912345680",
+        "cmnd": "192837465",
+        "address": "789 Đường C",
+        "province_id": "01",
+        "district_id": "001",
+        "ward_id": "00004",
+        "expect_success": false,
+        "validation": false,
+        "required_errors": ["Mật khẩu không được để trống!"]
+    },
+    {
+        "name": "Nguyen Van H",
+        "password": "abc12345",
+        "email": "h@email.com",
+        "phone": "09123456",
+        "cmnd": "999888777",
+        "address": "888 Đường H",
+        "province_id": "01",
+        "district_id": "001",
+        "ward_id": "00004",
+        "expect_success": false,
+        "validation": false,
+        "required_errors": ["Số điện thoại không đúng định dạng!"]
+    },
+    {
+        "name": "Nguyen Van D",
+        "password": "abc12345",
+        "email": "",
+        "phone": "0912345681",
+        "cmnd": "564738291",
+        "address": "101 Đường D",
+        "province_id": "01",
+        "district_id": "001",
+        "ward_id": "00004",
+        "expect_success": false,
+        "validation": false,
+        "required_errors": ["Email không được để trống!"]
+    },
+    {
+        "name": "Nguyen Van E",
+        "password": "abc12345",
+        "email": "e@email.com",
+        "phone": "",
+        "cmnd": "102938475",
+        "address": "202 Đường E",
+        "province_id": "01",
+        "district_id": "001",
+        "ward_id": "00004",
+        "expect_success": false,
+        "validation": false,
+        "required_errors": ["Số điện thoại không được để trống!"]
+    },
+    {
+        "name": "Nguyen Van F",
+        "password": "abc12345",
+        "email": "f@email.com",
+        "phone": "0912345682",
+        "cmnd": "",
+        "address": "303 Đường F",
+        "province_id": "01",
+        "district_id": "001",
+        "ward_id": "00004",
+        "expect_success": false,
+        "validation": false,
+        "required_errors": ["Số cmnd không được để trống!"]
+    },
+    {
+        "name": "Nguyen Van G",
+        "password": "abc12345",
+        "email": "g@email.com",
+        "phone": "0912345683",
+        "cmnd": "564738291",
+        "address": "",
+        "province_id": "01",
+        "district_id": "001",
+        "ward_id": "00004",
+        "expect_success": false,
+        "validation": false,
+        "required_errors": ["Địa chỉ không được để trống!"]
+    },
+    {
+        "name": "Nguyen Van A",
+        "password": "",
+        "email": "a@email.com",
+        "phone": "0912345678",
+        "cmnd": "123456789",
+        "address": "123 Đường A",
+        "province_id": "01",
+        "district_id": "001",
+        "ward_id": "00004",
+        "expect_success": false,
+        "required_errors": ["Mật khẩu không được để trống!", "Số cmnd không đúng định dạng!"],
+        "validation": false
+    },
+    {
+        "name": "",
+        "password": "",
+        "email": "",
+        "phone": "",
+        "cmnd": "",
+        "address": "",
+        "province_id": "01",
+        "district_id": "001",
+        "ward_id": "00004",
+        "expect_success": false,
+        "validation": false,
+        "required_errors": [
+            "Họ tên không được để trống!",
+            "Mật khẩu không được để trống!",
+            "Email không được để trống!",
+            "Số điện thoại không được để trống!",
+            "Số cmnd không được để trống!",
+            "Địa chỉ không được để trống!"
+        ]
+    },
+    {
+        "name": "",
+        "password": "abc12345",
+        "email": "",
+        "phone": "0912345679",
+        "cmnd": "987654321",
+        "address": "456 Đường B",
+        "province_id": "01",
+        "district_id": "001",
+        "ward_id": "00004",
+        "expect_success": false,
+        "validation": false,
+        "required_errors": [
+            "Họ tên không được để trống!",
+            "Email không được để trống!"
+        ]
+    },
+    {
+        "name": "Nguyen Van C",
+        "password": "",
+        "email": "c@email.com",
+        "phone": "",
+        "cmnd": "",
+        "address": "789 Đường C",
+        "province_id": "01",
+        "district_id": "001",
+        "ward_id": "00004",
+        "expect_success": false,
+        "validation": false,
+        "required_errors": [
+            "Mật khẩu không được để trống!",
+            "Số điện thoại không được để trống!",
+            "Số cmnd không được để trống!"
+        ]
     }
 ]

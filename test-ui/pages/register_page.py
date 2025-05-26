@@ -16,7 +16,7 @@ class RegisterPage(BasePage):
     WARD_SELECT = (By.NAME, "ward_id")
     REGISTER_BUTTON = (By.CSS_SELECTOR, "button[type='submit']")
     ERROR_MESSAGE = (By.CSS_SELECTOR, ".Toastify__toast-body")
-    SUCCESS_MESSAGE = (By.ID, "register-success")
+    SUCCESS_MESSAGE = (By.CSS_SELECTOR, "button[type='submit']")
 
     def fill_register_form(self, name, password, email, phone, cmnd, address, province_id, district_id, ward_id):
         self.input_text(self.NAME_INPUT, name)
