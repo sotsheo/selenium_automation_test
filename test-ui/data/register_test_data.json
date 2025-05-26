@@ -1,17 +1,18 @@
 [
+
     {
-        "name": "Nguyen Van A",
-        "password": "",
-        "email": "a@email.com",
-        "phone": "0912345678",
-        "cmnd": "123456789",
-        "address": "123 Đường A",
+        "name": "",
+        "password": "abc12345",
+        "email": "b@email.com",
+        "phone": "0912345679",
+        "cmnd": "987654321",
+        "address": "456 Đường B",
         "province_id": "01",
         "district_id": "001",
         "ward_id": "00004",
         "expect_success": false,
-        "required_errors": ["Mật khẩu không được để trống!"],
-        "validation": false
+        "validation": false,
+        "required_errors": ["Họ tên không được để trống!","Số cmnd không đúng định dạng!"],
+        "reuse_browser": true
     }
 ]
-
