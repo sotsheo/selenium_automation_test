@@ -44,6 +44,10 @@ selenium_ui_test/
   ```bash
   pytest tests/test_register.py --html=reports/report.html --self-contained-html
   ```
+- Chạy toàn bộ test và sinh báo cáo HTML:
+  ```bash
+  pytest tests/test_register.py --html=reports/report.html --self-contained-html --log-cli-level=INFO
+
 - Xem log trong `reports/test.log`.
 
 ## Ghi chú

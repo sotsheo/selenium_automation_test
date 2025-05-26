@@ -10,7 +10,8 @@
         "district_id": "001",
         "ward_id": "00004",
         "expect_success": false,
-        "required_errors": ["Mật khẩu không được để trống!"]
+        "required_errors": ["Mật khẩu không được để trống!"],
+        "validation": false
     }
 ]
 

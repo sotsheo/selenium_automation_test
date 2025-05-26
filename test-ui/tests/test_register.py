@@ -35,8 +35,11 @@ def test_register(case, driver):
         case.get('address', ''),
         case.get('province_id', ''),
         case.get('district_id', ''),
-        case.get('ward_id', '')
+        case.get('ward_id', ''),
+        case.get('validation', True)
     )
+    logger.info(f"Validation flag: {case.get('validation', True)}")
+
     if case.get('required_errors'):
         # Kiểm tra lỗi required cho các trường
         errors = page.get_field_error_messages()

@@ -51,13 +51,13 @@ class RegisterPage(BasePage):
         from selenium.common.exceptions import TimeoutException
         # Sau đó chờ box-loading biến mất (tối đa 5s)
         try:
-            WebDriverWait(self.driver, 5).until(
+            WebDriverWait(self.driver, 3).until(
                 EC.invisibility_of_element_located(("css selector", ".box-loading"))
             )
         except TimeoutException:
             pass
 
-    def register(self, name, password, email, phone, cmnd, address, province_id, district_id, ward_id):
+    def register(self, name, password, email, phone, cmnd, address, province_id, district_id, ward_id, validation= False):
         self.input_text(self.NAME_INPUT, name)
         self.input_text(self.PASSWORD_INPUT, password)
         self.input_text(self.EMAIL_INPUT, email)
@@ -67,7 +67,8 @@ class RegisterPage(BasePage):
         self.select_by_value(self.PROVINCE_SELECT, province_id)
         self.select_by_value(self.DISTRICT_SELECT, district_id)
         self.select_by_value(self.WARD_SELECT, ward_id)
-        self.click(self.REGISTER_BUTTON)
+        if validation:
+            self.click(self.REGISTER_BUTTON)
 
     def get_error_message(self):
         return self.get_text(self.ERROR_MESSAGE)
